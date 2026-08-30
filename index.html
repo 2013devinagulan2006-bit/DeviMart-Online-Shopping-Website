@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="DEVI MART — One Mart. Everything You Need. 💗 Shop electronics, fashion, beauty, and more." />
+  <title>DEVI MART - One Mart. Everything You Need. 💗</title>
+
+  <!-- Google Fonts — Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ===== TOP NAVIGATION ===== -->
+  <header id="navbar" role="banner">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand" aria-label="DEVI MART home">
+        <span class="brand-icon">💗</span>
+        <span class="brand-name">DEVI MART</span>
+      </a>
+
+      <button
+        class="nav-toggle"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        aria-controls="nav-links"
+      >
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+
+      <nav id="nav-links" class="nav-links" role="navigation" aria-label="Main navigation">
+        <!-- Rendered dynamically by app.js based on session role -->
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main id="app" role="main" aria-live="polite" aria-atomic="false">
+    <!-- All views rendered here by the Router -->
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer id="app-footer" role="contentinfo">
+    <div class="footer-inner">
+      <p class="footer-brand">
+        <span class="brand-icon">💗</span>
+        <strong>DEVI MART</strong> — One Mart. Everything You Need.
+      </p>
+      <p class="footer-copy">&copy; <span id="footer-year"></span> DEVI MART. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- ===== TOAST NOTIFICATIONS ===== -->
+  <div id="toast-container" role="status" aria-live="polite" aria-label="Notifications"></div>
+
+  <!-- ===== MODAL DIALOGS ===== -->
+  <div id="modal-container" role="dialog" aria-modal="true" aria-label="Dialog" hidden></div>
+
+  <script defer src="app.js"></script>
+  <script>
+    // Inline year so it works even before app.js loads
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
