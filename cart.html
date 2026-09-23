@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart - Devi Mart</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #fff5f8;
+            color: #333;
+        }
+
+        nav {
+            background: #ff4f87;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        nav h1 {
+            font-size: 28px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 30px;
+        }
+
+        .cart-item {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .cart-item img {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .item-details {
+            flex: 1;
+        }
+
+        .item-details h3 {
+            margin-bottom: 10px;
+        }
+
+        .price {
+            color: #ff4f87;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .quantity {
+            width: 60px;
+            padding: 7px;
+            font-size: 16px;
+        }
+
+        .remove-btn {
+            background: #ff4f87;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .summary {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: right;
+        }
+
+        .summary h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .checkout-btn {
+            background: #ff4f87;
+            color: white;
+            border: none;
+            padding: 13px 25px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .continue-btn {
+            display: inline-block;
+            margin-top: 20px;
+            color: #ff4f87;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .empty-cart {
+            background: white;
+            padding: 50px;
+            text-align: center;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 700px) {
+            nav {
+                padding: 15px;
+            }
+
+            nav a {
+                margin-left: 10px;
+            }
+
+            .cart-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .summary {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <h1>Devi Mart</h1>
+
+        <div>
+            <a href="home.html">Home</a>
+            <a href="products.html">Products</a>
+            <a href="profile.html">Profile</a>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <h2>🛒 My Cart</h2>
+
+        <div class="cart-item">
+
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Cadbury_Dairy_Milk.jpg"
+                 alt="Cadbury Dairy Milk">
+
+            <div class="item-details">
+                <h3>Cadbury Dairy Milk</h3>
+
+                <div class="price">₹50</div>
+
+                <label>Quantity:</label>
+                <input type="number" class="quantity" value="1" min="1">
+            </div>
+
+            <button class="remove-btn" onclick="removeItem()">
+                Remove
+            </button>
+
+        </div>
+
+        <div class="summary">
+
+            <h3>Total: ₹50</h3>
+
+            <button class="checkout-btn" onclick="checkout()">
+                Proceed to Checkout
+            </button>
+
+            <br>
+
+            <a href="products.html" class="continue-btn">
+                ← Continue Shopping
+            </a>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        function removeItem() {
+            alert("Product removed from cart!");
+        }
+
+        function checkout() {
+            window.location.href = "checkout.html";
+        }
+
+    </script>
+
+</body>
+</html>
