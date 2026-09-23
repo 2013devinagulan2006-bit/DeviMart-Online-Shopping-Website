@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Devi Mart - Order Success</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f5f5;
+        }
+
+        nav {
+            background: linear-gradient(135deg, #ff4f9a, #ff1493);
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 20px;
+        }
+
+        .success-box {
+            width: 90%;
+            max-width: 600px;
+            margin: 70px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+        }
+
+        .success-icon {
+            font-size: 65px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #ff1493;
+            margin-bottom: 15px;
+        }
+
+        .message {
+            color: #555;
+            font-size: 17px;
+            margin-bottom: 25px;
+        }
+
+        .order-details {
+            background: #fff0f6;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: left;
+            margin-bottom: 25px;
+        }
+
+        .order-details p {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .buttons a {
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .shopping-btn {
+            background: #ff1493;
+            color: white;
+        }
+
+        .home-btn {
+            background: #ff9800;
+            color: white;
+        }
+
+        footer {
+            margin-top: 50px;
+            padding: 25px;
+            background: #222;
+            color: white;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+
+    <div class="logo">
+        Devi Mart
+    </div>
+
+    <div class="nav-links">
+        <a href="home.html">Home</a>
+        <a href="products.html">Products</a>
+    </div>
+
+</nav>
+
+
+<div class="success-box">
+
+    <div class="success-icon">
+        🎉
+    </div>
+
+    <h1>Order Placed Successfully!</h1>
+
+    <p class="message">
+        Thank you for shopping with Devi Mart.
+        Your order has been placed successfully.
+    </p>
+
+
+    <div class="order-details">
+
+        <p>
+            <strong>Product:</strong>
+            <span id="productName"></span>
+        </p>
+
+        <p>
+            <strong>Quantity:</strong>
+            <span id="quantity"></span>
+        </p>
+
+        <p>
+            <strong>Total Amount:</strong>
+            ₹<span id="total"></span>
+        </p>
+
+        <p>
+            <strong>Payment Method:</strong>
+            <span id="payment"></span>
+        </p>
+
+        <p>
+            <strong>Customer Name:</strong>
+            <span id="customerName"></span>
+        </p>
+
+    </div>
+
+
+    <div class="buttons">
+
+        <a href="products.html" class="shopping-btn">
+            Continue Shopping
+        </a>
+
+        <a href="home.html" class="home-btn">
+            Back to Home
+        </a>
+
+    </div>
+
+</div>
+
+
+<footer>
+    <p>© 2026 Devi Mart. All Rights Reserved.</p>
+</footer>
+
+
+<script>
+
+const order = JSON.parse(
+    localStorage.getItem("order")
+);
+
+
+if (!order) {
+
+    alert("No order found!");
+
+    window.location.href = "products.html";
+
+} else {
+
+    document.getElementById("productName").textContent =
+        order.product.name;
+
+    document.getElementById("quantity").textContent =
+        order.product.quantity;
+
+    const total =
+        order.product.price * order.product.quantity;
+
+    document.getElementById("total").textContent =
+        total.toLocaleString("en-IN");
+
+    document.getElementById("payment").textContent =
+        order.paymentMethod;
+
+    document.getElementById("customerName").textContent =
+        order.customerName;
+
+}
+
+</script>
+
+</body>
+</html>
