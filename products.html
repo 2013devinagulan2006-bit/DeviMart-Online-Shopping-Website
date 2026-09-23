@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Devi Mart - Products</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        background: #f5f5f5;
+    }
+
+    nav {
+        background: linear-gradient(135deg, #ff4f9a, #ff1493);
+        padding: 18px 40px;
+        display: flex;
+        align-items: center;
+        gap: 25px;
+        flex-wrap: wrap;
+    }
+
+    .logo {
+        color: white;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .search {
+        flex: 1;
+        max-width: 500px;
+    }
+
+    .search input {
+        width: 100%;
+        padding: 13px 18px;
+        border: none;
+        border-radius: 25px;
+        outline: none;
+        font-size: 15px;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 20px;
+    }
+
+    .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .container {
+        width: 92%;
+        max-width: 1300px;
+        margin: 35px auto;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 35px;
+    }
+
+    .category-title {
+        color: #ff1493;
+        margin: 35px 0 20px;
+        padding-left: 12px;
+        border-left: 5px solid #ff1493;
+    }
+
+    .products {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 25px;
+    }
+
+    .product-card {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+        transition: 0.3s;
+        cursor: pointer;
+    }
+
+    .product-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .product-image {
+        width: 100%;
+        height: 220px;
+        object-fit: contain;
+        padding: 15px;
+        background: white;
+    }
+
+    .product-info {
+        padding: 18px;
+    }
+
+    .product-name {
+        font-size: 18px;
+        font-weight: bold;
+        min-height: 45px;
+    }
+
+    .price {
+        color: #e91e63;
+        font-size: 20px;
+        font-weight: bold;
+        margin: 12px 0;
+    }
+
+    .buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .buttons button {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .cart-btn {
+        background: #ff1493;
+        color: white;
+    }
+
+    .wishlist-btn {
+        background: #fff0f6;
+        color: #e91e63;
+        border: 1px solid #e91e63 !important;
+    }
+
+    .buy-btn {
+        background: #ff9800;
+        color: white;
+    }
+
+    .cart-btn:hover {
+        background: #d90072;
+    }
+
+    .wishlist-btn:hover {
+        background: #ffd9e9;
+    }
+
+    .buy-btn:hover {
+        background: #e68900;
+    }
+
+    .no-result {
+        text-align: center;
+        font-size: 20px;
+        color: #777;
+        padding: 50px 20px;
+    }
+
+    footer {
+        margin-top: 50px;
+        padding: 25px;
+        background: #222;
+        color: white;
+        text-align: center;
+    }
+</style>
+
+</head>
+
+<body>
+
+<nav>
+
+    <div class="logo">
+        Devi Mart
+    </div>
+
+    <div class="search">
+
+        <input
+            type="text"
+            id="searchBox"
+            placeholder="Search products..."
+        >
+
+    </div>
+
+    <div class="nav-links">
+
+        <a href="home.html">
+            Home
+        </a>
+
+        <a href="wishlist.html">
+            ♡ Wishlist
+        </a>
+
+        <a href="cart.html">
+            Cart 🛒
+        </a>
+
+    </div>
+
+</nav>
+
+
+<div class="container">
+
+    <h1 id="pageTitle">
+        All Products
+    </h1>
+
+
+    <h2 class="category-title" id="chocolateTitle">
+        🍫 Chocolates
+    </h2>
+
+    <div class="products" id="chocolates"></div>
+
+
+    <h2 class="category-title" id="electronicsTitle">
+        📱 Electronics
+    </h2>
+
+    <div class="products" id="electronics"></div>
+
+
+    <h2 class="category-title" id="flowersTitle">
+        🌸 Flowers
+    </h2>
+
+    <div class="products" id="flowers"></div>
+
+
+    <div class="no-result" id="noResult" style="display:none;">
+        No products found.
+    </div>
+
+</div>
+
+
+<footer>
+
+    <p>
+        © 2026 Devi Mart. All Rights Reserved.
+    </p>
+
+</footer>
+
+
+<script>
+
+const defaultProducts = [
+
+    {
+        category: "chocolates",
+        name: "Cadbury Dairy Milk",
+        price: 50,
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Cadbury%20Dairy%20Milk.jpg"
+    },
+    {
+        category: "chocolates",
+        name: "Cadbury Dairy Milk Silk",
+        price: 80,
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Diary%20milk%20silk%20varieties.jpg"
+    },
+    {
+        category: "chocolates",
+        name: "KitKat",
+        price: 40,
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Kit%20kat.jpg"
+    },
+    {
+        category: "chocolates",
+        name: "Cadbury 5 Star",
+        price: 20,
+        image: "https://cdn.shopify.com/s/files/1/1857/6931/products/618fySthK8L._SL1500.jpg?v=1613908004"
+    },
+    {
+        category: "chocolates",
+        name: "Cadbury Perk",
+        price: 10,
+        image: "https://www.swadeshsquare.com/cdn/shop/files/cadbury-perk-twin-wafer-chocolate-bar-28-g-product-images-o491074314-p491074314-0-202203171001.webp?v=1707611106&width=1946"
+    },
+    {
+        category: "chocolates",
+        name: "Nestle Munch",
+        price: 10,
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Nestle%20Munch%20Butterscotch%20Max%20Wafer%2C%20India%20%282025%29%2001.jpg"
+    },
+    {
+        category: "chocolates",
+        name: "Snickers",
+        price: 50,
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Snickers.jpg"
+    },
+    {
+        category: "chocolates",
+        name: "Ferrero Rocher",
+        price: 250,
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/%22%22%20Ferrero%20Rocher%20is%20a%20spherical%20chocolate%20sweet%20introduced%20by%20Italian%20chocolatier%20Ferrero%20SpA.jpg"
+    },
+    {
+        category: "chocolates",
+        name: "Nestle Milkybar",
+        price: 30,
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Milkybar-Split.jpg"
+    },
+    {
+        category: "chocolates",
+        name: "Galaxy Chocolate",
+        price: 100,
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Galaxy%20Honeycomb%20Crisp%20Front.jpg"
+    },
+
+    {
+        category: "electronics",
+        name: "Smartphone",
+        price: 15999,
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Smartphone.png"
+    },
+    {
+        category: "electronics",
+        name: "Laptop",
+        price: 55999,
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Laptop.jpg"
+    },
+    {
+        category: "electronics",
+        name: "Wireless Headphones",
+        price: 2499,
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Toxxel%20Wireless%20Headphones.jpg"
+    },
+    {
+        category: "electronics",
+        name: "Smart Watch",
+        price: 3999,
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Smartwatch.jpg"
+    },
+    {
+        category: "electronics",
+        name: "Digital Camera",
+        price: 29999,
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Digital%20Camera.jpg"
+    },
+    {
+        category: "electronics",
+        name: "Bluetooth Speaker",
+        price: 1999,
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Speaker%20JBL%20GO.jpg"
+    },
+    {
+        category: "electronics",
+        name: "Android Tablet",
+        price: 18999,
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Sony%20Xperia%20Z4%20Tablet%20with%20Bluetooth%20keyboard%20%2817110497996%29.jpg"
+    },
+    {
+        category: "electronics",
+        name: "Wireless Keyboard",
+        price: 1299,
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Amazon%20Basics%20Wireless%20Computer%20Keyboard.jpg"
+    },
+    {
+        category: "electronics",
+        name: "Wireless Mouse",
+        price: 799,
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Logitech%20M196%20wireless%20mouse.jpg"
+    },
+    {
+        category: "electronics",
+        name: "Wireless Earbuds",
+        price: 1499,
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/TWS%20air%20buds.jpg"
+    },
+
+    {
+        category: "flowers",
+        name: "Red Roses Bouquet",
+        price: 499,
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Red%20Roses%20bouquet.jpg"
+    },
+    {
+        category: "flowers",
+        name: "Jasmine Flowers",
+        price: 199,
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Jasmine%20flowers.jpg"
+    },
+    {
+        category: "flowers",
+        name: "Fresh Tulips",
+        price: 599,
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Tulipe.jpg"
+    },
+    {
+        category: "flowers",
+        name: "Sunflower Bouquet",
+        price: 399,
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Sunflower.jpg"
+    },
+    {
+        category: "flowers",
+        name: "White Lilies",
+        price: 450,
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Lilium%20candidum.jpg"
+    },
+    {
+        category: "flowers",
+        name: "Pink Orchid",
+        price: 699,
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Orchid.jpg"
+    },
+    {
+        category: "flowers",
+        name: "Marigold Flowers",
+        price: 249,
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Marigold.jpg"
+    },
+    {
+        category: "flowers",
+        name: "Gerbera Bouquet",
+        price: 449,
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Gerbera.jpg"
+    },
+    {
+        category: "flowers",
+        name: "Mixed Flower Bouquet",
+        price: 599,
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Mixed%20flowers.jpg"
+    },
+    {
+        category: "flowers",
+        name: "Premium Flower Collection",
+        price: 999,
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Flower%20bouquet.jpg"
+    }
+
+];
+
+
+let products = JSON.parse(localStorage.getItem("products"));
+
+
+if (!products || products.length === 0) {
+
+    products = defaultProducts;
+
+    localStorage.setItem(
+        "products",
+        JSON.stringify(products)
+    );
+
+}
+
+
+/* Get search and category from URL */
+
+const urlParams = new URLSearchParams(
+    window.location.search
+);
+
+const searchText =
+    (urlParams.get("search") || "")
+    .trim()
+    .toLowerCase();
+
+const selectedCategory =
+    (urlParams.get("category") || "")
+    .trim()
+    .toLowerCase();
+
+
+/* Put search text inside Products page search box */
+
+document.getElementById("searchBox").value =
+    urlParams.get("search") || "";
+
+
+/* Display products */
+
+function displayProducts() {
+
+    document.getElementById("chocolates").innerHTML = "";
+    document.getElementById("electronics").innerHTML = "";
+    document.getElementById("flowers").innerHTML = "";
+
+    let filteredProducts = products;
+
+
+    /* Search filter */
+
+    if (searchText !== "") {
+
+        filteredProducts = filteredProducts.filter(function(product) {
+
+            return product.name
+                .toLowerCase()
+                .includes(searchText);
+
+        });
+
+    }
+
+
+    /* Category filter */
+
+    if (selectedCategory !== "") {
+
+        filteredProducts = filteredProducts.filter(function(product) {
+
+            return product.category.toLowerCase() === selectedCategory;
+
+        });
+
+    }
+
+
+    /* No result */
+
+    if (filteredProducts.length === 0) {
+
+        document.getElementById("noResult").style.display = "block";
+
+    } else {
+
+        document.getElementById("noResult").style.display = "none";
+
+    }
+
+
+    /* Change page title */
+
+    if (searchText !== "") {
+
+        document.getElementById("pageTitle").textContent =
+            "Search Results for: " + urlParams.get("search");
+
+    } else if (selectedCategory !== "") {
+
+        document.getElementById("pageTitle").textContent =
+            selectedCategory.charAt(0).toUpperCase() +
+            selectedCategory.slice(1) +
+            " Products";
+
+    } else {
+
+        document.getElementById("pageTitle").textContent =
+            "All Products";
+
+    }
+
+
+    /* Hide category headings when searching */
+
+    if (searchText !== "") {
+
+        document.getElementById("chocolateTitle").style.display = "none";
+        document.getElementById("electronicsTitle").style.display = "none";
+        document.getElementById("flowersTitle").style.display = "none";
+
+    }
+
+
+    filteredProducts.forEach(function(product) {
+
+        const card = document.createElement("div");
+
+        card.className = "product-card";
+
+        card.innerHTML = `
+
+            <img
+                class="product-image"
+                src="${product.image}"
+                alt="${product.name}"
+            >
+
+            <div class="product-info">
+
+                <div class="product-name">
+                    ${product.name}
+                </div>
+
+                <div class="price">
+                    ₹${Number(product.price).toLocaleString("en-IN")}
+                </div>
+
+                <div class="buttons">
+
+                    <button class="cart-btn">
+                        🛒 Add to Cart
+                    </button>
+
+                    <button class="wishlist-btn">
+                        ♡ Add to Wishlist
+                    </button>
+
+                    <button class="buy-btn">
+                        Buy Now
+                    </button>
+
+                </div>
+
+            </div>
+        `;
+
+
+        card.addEventListener("click", function() {
+
+            localStorage.setItem(
+                "selectedProduct",
+                JSON.stringify(product)
+            );
+
+            window.location.href =
+                "product-details.html";
+
+        });
+
+
+        card.querySelector(".cart-btn").addEventListener("click", function(event) {
+
+            event.stopPropagation();
+
+            const cartProduct = {
+
+                name: product.name,
+
+                price: Number(product.price),
+
+                image: product.image,
+
+                quantity: 1
+
+            };
+
+            localStorage.setItem(
+                "cartProduct",
+                JSON.stringify(cartProduct)
+            );
+
+            alert(
+                product.name +
+                " added to cart!"
+            );
+
+        });
+
+
+        card.querySelector(".wishlist-btn").addEventListener("click", function(event) {
+
+            event.stopPropagation();
+
+            let wishlist =
+                JSON.parse(
+                    localStorage.getItem("wishlist")
+                ) || [];
+
+
+            let alreadyExists =
+                wishlist.some(function(item) {
+
+                    return item.name === product.name;
+
+                });
+
+
+            if (alreadyExists) {
+
+                alert(
+                    product.name +
+                    " is already in your wishlist!"
+                );
+
+                return;
+
+            }
+
+
+            wishlist.push({
+
+                name: product.name,
+
+                price: Number(product.price),
+
+                image: product.image
+
+            });
+
+
+            localStorage.setItem(
+                "wishlist",
+                JSON.stringify(wishlist)
+            );
+
+
+            alert(
+                product.name +
+                " added to wishlist!"
+            );
+
+        });
+
+
+        card.querySelector(".buy-btn").addEventListener("click", function(event) {
+
+            event.stopPropagation();
+
+            localStorage.setItem(
+                "selectedProduct",
+                JSON.stringify(product)
+            );
+
+            window.location.href =
+                "product-details.html";
+
+        });
+
+
+        const categoryContainer =
+            document.getElementById(
+                product.category
+            );
+
+
+        if (categoryContainer) {
+
+            categoryContainer.appendChild(card);
+
+        }
+
+    });
+
+}
+
+
+displayProducts();
+
+
+/* Products page search */
+
+document.getElementById("searchBox")
+.addEventListener("keydown", function(event) {
+
+    if (event.key === "Enter") {
+
+        const value =
+            this.value.trim();
+
+
+        if (value === "") {
+
+            window.location.href =
+                "products.html";
+
+        } else {
+
+            window.location.href =
+                "products.html?search=" +
+                encodeURIComponent(value);
+
+        }
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
