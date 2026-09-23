@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Devi Mart - Profile</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f7f7f7;
+        }
+
+        .navbar {
+            height: 70px;
+            background: white;
+            display: flex;
+            align-items: center;
+            padding: 0 35px;
+            gap: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #e91e63;
+        }
+
+        .nav-links {
+            margin-left: auto;
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 700px;
+            margin: 40px auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #e91e63;
+            margin-bottom: 30px;
+        }
+
+        .profile-card {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 25px;
+            background: #fce4ec;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 55px;
+        }
+
+        .profile-item {
+            margin-bottom: 20px;
+        }
+
+        .profile-item label {
+            display: block;
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 7px;
+        }
+
+        .profile-item input,
+        .profile-item textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .profile-item textarea {
+            height: 90px;
+            resize: none;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .buttons button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .save-btn {
+            background: #e91e63;
+            color: white;
+        }
+
+        .logout-btn {
+            background: #555;
+            color: white;
+        }
+
+        .save-btn:hover {
+            background: #c2185b;
+        }
+
+        .logout-btn:hover {
+            background: #333;
+        }
+
+        footer {
+            margin-top: 50px;
+            padding: 25px;
+            background: #222;
+            color: white;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 0 15px;
+            }
+
+            .logo {
+                font-size: 23px;
+            }
+
+            .nav-links {
+                gap: 10px;
+            }
+
+            .profile-card {
+                padding: 25px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            Devi Mart
+        </div>
+
+        <div class="nav-links">
+
+            <a href="home.html">
+                Home
+            </a>
+
+            <a href="products.html">
+                Products
+            </a>
+
+            <a href="wishlist.html">
+                ♡ Wishlist
+            </a>
+
+            <a href="cart.html">
+                🛒 Cart
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <div class="container">
+
+        <h1>My Profile</h1>
+
+        <div class="profile-card">
+
+            <div class="profile-icon">
+                👤
+            </div>
+
+
+            <div class="profile-item">
+
+                <label>
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="fullName"
+                    placeholder="Enter your name"
+                >
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <label>
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                >
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <label>
+                    Phone Number
+                </label>
+
+                <input
+                    type="tel"
+                    id="phone"
+                    placeholder="Enter your phone number"
+                >
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <label>
+                    Address
+                </label>
+
+                <textarea
+                    id="address"
+                    placeholder="Enter your address"
+                ></textarea>
+
+            </div>
+
+
+            <div class="buttons">
+
+                <button
+                    class="save-btn"
+                    onclick="saveProfile()"
+                >
+                    Save Profile
+                </button>
+
+                <button
+                    class="logout-btn"
+                    onclick="logout()"
+                >
+                    Logout
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <footer>
+
+        © 2026 Devi Mart. All Rights Reserved.
+
+    </footer>
+
+
+    <script>
+
+        function saveProfile() {
+
+            const profile = {
+
+                fullName:
+                    document.getElementById("fullName").value,
+
+                email:
+                    document.getElementById("email").value,
+
+                phone:
+                    document.getElementById("phone").value,
+
+                address:
+                    document.getElementById("address").value
+
+            };
+
+
+            localStorage.setItem(
+                "profile",
+                JSON.stringify(profile)
+            );
+
+
+            alert("Profile saved successfully!");
+
+        }
+
+
+        function loadProfile() {
+
+            const profile =
+                JSON.parse(
+                    localStorage.getItem("profile")
+                );
+
+
+            if (profile) {
+
+                document.getElementById("fullName").value =
+                    profile.fullName || "";
+
+                document.getElementById("email").value =
+                    profile.email || "";
+
+                document.getElementById("phone").value =
+                    profile.phone || "";
+
+                document.getElementById("address").value =
+                    profile.address || "";
+
+            }
+
+        }
+
+
+        function logout() {
+
+            alert("Logged out successfully!");
+
+            window.location.href =
+                "login.html";
+
+        }
+
+
+        loadProfile();
+
+    </script>
+
+</body>
+</html>
