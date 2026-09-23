@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Devi Mart - Admin Dashboard</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #f5f5f5;
+        }
+
+        nav {
+            background: linear-gradient(135deg, #ff4f9a, #ff1493);
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-right a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .logout-btn {
+            background: #222;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1200px;
+            margin: 35px auto;
+        }
+
+        .welcome {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .welcome h1 {
+            color: #ff1493;
+            margin-bottom: 8px;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .card h2 {
+            color: #ff1493;
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .section {
+            margin-bottom: 45px;
+        }
+
+        .section h2 {
+            margin-bottom: 18px;
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 12px;
+            overflow-x: auto;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 650px;
+        }
+
+        th,
+        td {
+            padding: 14px;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+        }
+
+        th {
+            background: #ffebf4;
+            color: #333;
+        }
+
+        .delete-btn {
+            background: #f44336;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .product-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .product-row {
+            background: white;
+            padding: 14px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .product-row img {
+            width: 65px;
+            height: 65px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product-info h3 {
+            margin-bottom: 6px;
+        }
+
+        .product-info p {
+            margin: 4px 0;
+            color: #666;
+        }
+
+        .order-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .order-card h3 {
+            color: #ff1493;
+            margin-bottom: 12px;
+        }
+
+        .order-card p {
+            margin: 6px 0;
+        }
+
+        .status {
+            display: inline-block;
+            background: #fff3cd;
+            color: #856404;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-weight: bold;
+        }
+
+        .empty {
+            background: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 12px;
+            color: #777;
+        }
+
+        footer {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                padding: 15px 20px;
+            }
+
+            .logo {
+                font-size: 21px;
+            }
+
+            .nav-right a {
+                display: none;
+            }
+
+            .product-row {
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+
+    <div class="logo">
+        Devi Mart - Admin
+    </div>
+
+    <div class="nav-right">
+        <a href="home.html">Home</a>
+
+        <button
+            class="logout-btn"
+            onclick="logout()">
+            Logout
+        </button>
+    </div>
+
+</nav>
+
+
+<div class="container">
+
+    <div class="welcome">
+
+        <h1>Welcome, Admin!</h1>
+
+        <p>
+            Manage users, sellers, products and customer orders.
+        </p>
+
+    </div>
+
+
+    <div class="dashboard">
+
+        <div class="card">
+            <h2 id="userCount">0</h2>
+            <p>Total Users</p>
+        </div>
+
+        <div class="card">
+            <h2 id="sellerCount">0</h2>
+            <p>Total Sellers</p>
+        </div>
+
+        <div class="card">
+            <h2 id="productCount">0</h2>
+            <p>Total Products</p>
+        </div>
+
+        <div class="card">
+            <h2 id="orderCount">0</h2>
+            <p>Total Orders</p>
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <h2>👥 Registered Users</h2>
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Account Type</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="userTable"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <h2>🏪 Sellers</h2>
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                    </tr>
+                </thead>
+
+                <tbody id="sellerTable"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <h2>📦 All Products</h2>
+
+        <div
+            class="product-list"
+            id="productList">
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <h2>🛒 Customer Orders</h2>
+
+        <div id="orderList"></div>
+
+    </div>
+
+</div>
+
+
+<footer>
+    <p>© 2026 Devi Mart. All Rights Reserved.</p>
+</footer>
+
+
+<script>
+
+const loggedInUser =
+    JSON.parse(localStorage.getItem("loggedInUser"));
+
+
+if (
+    !loggedInUser ||
+    loggedInUser.accountType !== "admin"
+) {
+
+    alert("Admin access required.");
+
+    window.location.href = "login.html";
+}
+
+
+let users =
+    JSON.parse(localStorage.getItem("users")) || [];
+
+
+let products =
+    JSON.parse(localStorage.getItem("products")) || [];
+
+
+let orders =
+    JSON.parse(localStorage.getItem("orders")) || [];
+
+
+function displayDashboard() {
+
+    document.getElementById("userCount").textContent =
+        users.length;
+
+    document.getElementById("sellerCount").textContent =
+        users.filter(function(user) {
+            return user.accountType === "seller";
+        }).length;
+
+    document.getElementById("productCount").textContent =
+        products.length;
+
+    document.getElementById("orderCount").textContent =
+        orders.length;
+
+}
+
+
+function displayUsers() {
+
+    const table =
+        document.getElementById("userTable");
+
+    table.innerHTML = "";
+
+
+    if (users.length === 0) {
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="5">
+                    No users registered.
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    users.forEach(function(user, index) {
+
+        const row =
+            document.createElement("tr");
+
+
+        row.innerHTML = `
+
+            <td>${user.name}</td>
+
+            <td>${user.email}</td>
+
+            <td>${user.phone}</td>
+
+            <td>${user.accountType}</td>
+
+            <td>
+                <button
+                    class="delete-btn"
+                    onclick="deleteUser(${index})">
+                    Delete
+                </button>
+            </td>
+
+        `;
+
+
+        table.appendChild(row);
+
+    });
+
+}
+
+
+function displaySellers() {
+
+    const table =
+        document.getElementById("sellerTable");
+
+    table.innerHTML = "";
+
+
+    const sellers =
+        users.filter(function(user) {
+
+            return user.accountType === "seller";
+
+        });
+
+
+    if (sellers.length === 0) {
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="3">
+                    No sellers registered.
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    sellers.forEach(function(seller) {
+
+        const row =
+            document.createElement("tr");
+
+
+        row.innerHTML = `
+
+            <td>${seller.name}</td>
+
+            <td>${seller.email}</td>
+
+            <td>${seller.phone}</td>
+
+        `;
+
+
+        table.appendChild(row);
+
+    });
+
+}
+
+
+function displayProducts() {
+
+    const list =
+        document.getElementById("productList");
+
+    list.innerHTML = "";
+
+
+    if (products.length === 0) {
+
+        list.innerHTML = `
+            <div class="empty">
+                No products available.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    products.forEach(function(product, index) {
+
+        const row =
+            document.createElement("div");
+
+        row.className = "product-row";
+
+
+        row.innerHTML = `
+
+            <img
+                src="${product.image}"
+                alt="${product.name}"
+            >
+
+            <div class="product-info">
+
+                <h3>
+                    ${product.name}
+                </h3>
+
+                <p>
+                    Category: ${product.category}
+                </p>
+
+                <p>
+                    Price: ₹${Number(product.price).toLocaleString("en-IN")}
+                </p>
+
+            </div>
+
+            <button
+                class="delete-btn"
+                onclick="deleteProduct(${index})">
+                Delete
+            </button>
+
+        `;
+
+
+        list.appendChild(row);
+
+    });
+
+}
+
+
+function displayOrders() {
+
+    const list =
+        document.getElementById("orderList");
+
+    list.innerHTML = "";
+
+
+    if (orders.length === 0) {
+
+        list.innerHTML = `
+            <div class="empty">
+                <h3>No Orders Yet</h3>
+                <p>Customer orders will appear here.</p>
+            </div>
+        `;
+
+        return;
+    }
+
+
+    orders.forEach(function(order) {
+
+        const card =
+            document.createElement("div");
+
+        card.className = "order-card";
+
+
+        card.innerHTML = `
+
+            <h3>
+                Order ID: ${order.orderId}
+            </h3>
+
+            <p>
+                <strong>Customer:</strong>
+                ${order.customerName}
+            </p>
+
+            <p>
+                <strong>Email:</strong>
+                ${order.customerEmail}
+            </p>
+
+            <p>
+                <strong>Phone:</strong>
+                ${order.phone}
+            </p>
+
+            <p>
+                <strong>Product:</strong>
+                ${order.product.name}
+            </p>
+
+            <p>
+                <strong>Quantity:</strong>
+                ${order.product.quantity}
+            </p>
+
+            <p>
+                <strong>Payment:</strong>
+                ${order.paymentMethod}
+            </p>
+
+            <p>
+                <strong>Total:</strong>
+                ₹${Number(order.totalAmount).toLocaleString("en-IN")}
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+                <span class="status">
+                    ${order.status}
+                </span>
+            </p>
+
+            <p>
+                <strong>Order Date:</strong>
+                ${order.orderDate}
+            </p>
+
+        `;
+
+
+        list.appendChild(card);
+
+    });
+
+}
+
+
+function deleteUser(index) {
+
+    const user =
+        users[index];
+
+
+    if (
+        user.email === loggedInUser.email
+    ) {
+
+        alert("You cannot delete your own admin account.");
+
+        return;
+    }
+
+
+    const confirmDelete =
+        confirm(
+            "Delete user " +
+            user.name +
+            "?"
+        );
+
+
+    if (!confirmDelete) {
+        return;
+    }
+
+
+    users.splice(index, 1);
+
+
+    localStorage.setItem(
+        "users",
+        JSON.stringify(users)
+    );
+
+
+    displayDashboard();
+
+    displayUsers();
+
+    displaySellers();
+
+    alert("User deleted successfully!");
+
+}
+
+
+function deleteProduct(index) {
+
+    const product =
+        products[index];
+
+
+    const confirmDelete =
+        confirm(
+            "Delete " +
+            product.name +
+            "?"
+        );
+
+
+    if (!confirmDelete) {
+        return;
+    }
+
+
+    products.splice(index, 1);
+
+
+    localStorage.setItem(
+        "products",
+        JSON.stringify(products)
+    );
+
+
+    displayDashboard();
+
+    displayProducts();
+
+    alert("Product deleted successfully!");
+
+}
+
+
+function logout() {
+
+    localStorage.removeItem("loggedInUser");
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+displayDashboard();
+
+displayUsers();
+
+displaySellers();
+
+displayProducts();
+
+displayOrders();
+
+</script>
+
+</body>
+</html>
